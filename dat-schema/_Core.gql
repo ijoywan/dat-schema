@@ -1,6 +1,28 @@
 # noinspection GraphQLMemberRedefinition,GraphQLTypeRedefinition
 enum AccountQuestFlags @indexing(first: 0) { _ }
 
+type AtlasPassiveSkillSubTrees {
+  Id: string @unique
+  UI_Image: string
+  UI_Background: string
+  IllustrationX: i32
+  IllustrationY: i32
+  CounterX: i32
+  CounterY: i32
+  _: ClientStrings
+  _: ClientStrings
+  _: ClientStrings
+  _: string
+  _: string
+  _: f32
+  Description: string
+  _: i32
+  _: i32
+  _: i32
+  _: i32
+  Icon: string @file(ext: ".dds")
+}
+
 type AtlasTrees {
   Id: string
   Name: string
@@ -285,6 +307,14 @@ type AlternateTreeVersions {
   _: i32
   _: i32
   _: i32
+  _: string
+}
+
+type AlternateTreeVersionKeystones {
+  Version: AlternateTreeVersions
+  _: i32
+  Conqueror: string
+  _: i32
 }
 
 type AnimatedGuardianInventories {
@@ -430,6 +460,7 @@ type Ascendancy {
   _: i32
   LeagueIcon: string
   _: bool
+  _: PassiveSkillTreeUIArt
 }
 
 type AtlasFavouredMapSlots {
@@ -440,12 +471,12 @@ type AtlasFavouredMapSlots {
 
 type AtlasMissionTypes {
   Id: string
-  Stats: [Stats]
-  StatValues: [i32]
   Astrolabe: BaseItemTypes
-  _: i32
-  _: i32
-  _: rid # All rows empty
+  _: NPCTextAudio
+  ThreadType: AtlasThreadTypes
+  _: string
+  _: string
+  _: string
 }
 
 type AtlasFog {
@@ -540,6 +571,7 @@ type AtlasNode {
   MapNodeHeader: MapNodeHeader
   _: bool
   _: i32
+  _: bool
 }
 
 type AtlasNodeDefinition {
@@ -561,6 +593,7 @@ type AtlasNodeDefinition {
   _: bool
   Header: MapNodeHeader
   _: i32
+  _: bool
 }
 
 type AtlasPositions {
@@ -575,6 +608,46 @@ type AtlasRegions {
   MemoryVault: WorldAreas
   _: [_] # All rows empty
   _: [_] # All rows empty
+}
+
+type AtlasThreadDynamicInventorySlots {
+  Id: string @unique
+  ThreadType: AtlasThreadTypes
+  _: i32
+  _: string
+  _: i32
+  _: i32
+  _: i32
+  BaseItemTypes: [BaseItemTypes]
+}
+
+type AtlasThreadsLayout {
+  Id: string @unique
+  _: i32
+  _: string
+}
+
+type AtlasThreadTiers {
+  ThreadType: AtlasThreadTypes
+  Tier: i32
+  _: [_] # All rows empty
+  _: [_] # All rows empty
+  _: [_] # All rows empty
+  _: [_] # All rows empty
+  _: bool
+}
+
+type AtlasThreadTypes {
+  Id: string @unique
+  _: string
+  Stats: [Stats]
+  StatValues: [i32]
+  BaseItemType: BaseItemTypes
+  _: Stats
+  _: Stats
+  _: Stats
+  _: Tags
+  _: string
 }
 
 type AtlasUberMonsterLifeScalingPerLevel {
@@ -838,6 +911,7 @@ type BuffVisualOrbTypes {
   _: f32
   _: bool
   _: f32
+  _: i32
   _: i32
 }
 
@@ -1124,6 +1198,7 @@ type Chests {
   _: bool
   ObjectQuickAction: [WorldObjectQuickActions]
   _: bool
+  _: i32
 }
 
 type ClientStrings {
@@ -1226,6 +1301,7 @@ type CoreLeagues {
   _: [Stats]
   _: bool
   _: Stats
+  SurpassingChanceStat: Stats
 }
 
 type CostTypes {
@@ -1278,6 +1354,7 @@ type CraftingBenchOptions @tags(list: ["crafting"]) {
   PassiveSkills: [PassiveSkills]
   Tags: [Tags]
   _: [i32]
+  _: bool
 }
 
 type CraftingBenchSortCategories {
@@ -1350,6 +1427,17 @@ type CurrencyStashTabLayout {
 }
 
 enum CurrencyUseTypes @indexing(first: 0) { _ }
+
+type CustomAddModCurrency {
+  BaseItemType: BaseItemTypes
+  ItemClasses: [ItemClasses]
+  BaseItemTypes: [BaseItemTypes]
+  Tags: [Tags]
+  _: bool
+  _: bool
+  Mod: Mods
+  _: i32
+}
 
 type DaemonSpawningData {
   Id: string
@@ -1614,6 +1702,34 @@ type EinharPackFallback {
   MonsterPack: [MonsterPacks]
 }
 
+type EmptyVisualSlotOverrides {
+  Stat: Stats
+  _: i32
+  ItemClass: ItemClasses
+  ItemVisualIdentity: ItemVisualIdentity
+  _: i32
+  _: i32
+  _: i32
+  _: i32
+}
+
+type EndgamePlayerHideoutApplyMods {
+  Id: string @unique
+  _: i16
+  _: bool
+  MissionType: AtlasMissionTypes
+}
+
+type EndgamePlayerHideoutRewards {
+  Id: string @unique
+  _: i16
+  _: rid # All rows empty
+  _: i32
+  _: string
+  _: bool
+  Rarity: ClientStrings2
+}
+
 type EndlessLedgeChests {
   Id: string @unique
   WorldAreasKey: WorldAreas
@@ -1765,6 +1881,16 @@ type ExtraTerrainFeatures {
   _: i32
 }
 
+type FishingHookTypes {
+  _: i32
+  Name: string
+}
+
+type FishingLureTypes {
+  _: i32
+  Name: string
+}
+
 type FixedHideoutDoodadTypes {
   Id: string
   HideoutDoodadsKeys: [HideoutDoodads]
@@ -1774,6 +1900,7 @@ type FixedHideoutDoodadTypes {
   _: bool
   UnlockQuest: Quest
   WorldArea: WorldAreas
+  _: bool
 }
 
 type FixedMissions {
@@ -2016,6 +2143,8 @@ type GeometryProjectiles {
   _: bool
   _: rid
   _: i32
+  _: string
+  _: string
 }
 
 type GeometryTrigger {
@@ -2135,6 +2264,9 @@ type GrantedEffects {
   _: bool
   StatSet1: GrantedEffectStatSets
   StatSet2: [GrantedEffectStatSets]
+  SupportName: string
+  SupportDescription: string
+  SupportIcon: string
 }
 
 type GrantedEffectsPerLevel {
@@ -2554,6 +2686,7 @@ type ItemFrameType {
   DisplayString: ClientStrings
   ColorMarkup: string
   _: i32
+  _: i32
 }
 
 type ItemisedVisualEffect {
@@ -2592,6 +2725,7 @@ type ItemNoteCode {
   # One of these bools was previously called "Show", but unclear which one it is now
   _: bool
   _: bool
+  _: bool
 }
 
 enum ItemSetNames @indexing(first: 0) { _ }
@@ -2615,7 +2749,7 @@ type ItemVisualEffect {
   TwoHandedAxeEPKFile: string @file(ext: ".epk")
   ClawEPKFile: string @file(ext: ".epk")
   PETFile: string @file(ext: ".pet")
-  Shield: [string] @file(ext: ".epk")
+  Shield: string @file(ext: ".epk")
   _: bool
   _: string
 }
@@ -2860,10 +2994,11 @@ type LeagueStaticRewards {
   _: rid
   _: rid
   _: i32
-  _: i32
   _: bool
   _: [i32]
   _: [rid]
+  _: rid # All rows empty
+  _: i32
 }
 
 type LevelRelativePlayerScaling {
@@ -2943,6 +3078,7 @@ type MapDeviceLayouts {
   _: [i32]
   _: [i32]
   _: i32
+  _: bool
 }
 
 type MapDevices {
@@ -2980,6 +3116,7 @@ type MapFragmentMods {
   MapFragmentLimit: i32
   _: bool
   _: [i32]
+  _: bool
 }
 
 type MapInhabitants {
@@ -2997,6 +3134,12 @@ type MapKeys {
 type MapMissionIcon {
   Mission: string @unique
   Icon: string
+}
+
+type MapModIcons {
+  Mod: Mods
+  Icon: string
+  Description: string
 }
 
 type MapNodeHeader {
@@ -3118,6 +3261,7 @@ type MapSeriesTiers {
   KeepersTier: i32
   MirageTier: i32
   AbyssalTier: i32
+  _: i32
 }
 
 type MapStashSpecialSubStashGroup {
@@ -3324,6 +3468,11 @@ type MicrotransactionSocialFrameVariations {
   BK2File: string @file(ext: ".bk2")
 }
 
+type MicrotransactionTiers {
+  _: rid
+  _: [i32]
+}
+
 type MicrotransactionTrackingMapFragmentTypes {
   BaseItemType: BaseItemTypes @unique
   _: i32
@@ -3486,6 +3635,12 @@ enum ModDomains @indexing(first: 1) {
   NECROPOLIS_MONSTER
   IDOL
   GRAFT
+  _
+  _
+  _
+  _
+  HARVEST_TREE
+  LEGION_MONOLITH
 }
 
 type ModEffectStats {
@@ -3588,7 +3743,7 @@ type Mods @tags(list: ["crafting"]) {
   AuraFlags: [ModAuraFlags]
   MonsterMetadata: string
   MonsterKillAchievements: [AchievementItems]
-  ArchnemesisType: [ModType]
+  ChestOpenAchievements: [AchievementItems]
   Stat5Min: i32
   Stat5Max: i32
   StatsKey5: Stats
@@ -3639,6 +3794,11 @@ type Mods @tags(list: ["crafting"]) {
   GameMode: GameModes
   GrantedEffectRuthless: [GrantedEffectsPerLevel]
   IsUnscalable: bool
+  _: [GrantedEffects]
+  _: [GrantedEffects]
+  _: bool
+  _: i32
+  _: bool
 }
 
 type ModSellPriceTypes {
@@ -4325,7 +4485,7 @@ type NPCMaster {
   Signature_ModsKey: Mods
   SpawnWeight_TagsKeys: [Tags]
   SpawnWeight_Values: [i32]
-  Stat: Stats
+  Currency: CurrencyItems
   Achievement: [AchievementItems]
   AfflictionAchievement: [AchievementItems]
   League: CoreLeagues
@@ -4413,6 +4573,7 @@ type NPCTalk {
   _: NPCTalk
   Inventory: Inventories
   _: string
+  _: i32
 }
 
 type NPCTalkCategory {
@@ -4521,6 +4682,7 @@ type PassiveJewelSlots {
   ProxySlot: PassiveSkills
   StartIndices: [i32]
   _: bool
+  _: i32
 }
 
 type PassiveJewelNodeModifyingStats {
@@ -4574,6 +4736,13 @@ type PassiveOverrideLimits {
   _: bool
 }
 
+type PassiveSkillMasteryArt {
+  Id: string @unique
+  InactiveIcon: string @file(ext: ".dds")
+  ActiveIcon: string @file(ext: ".dds")
+  ActiveEffectImage: string
+}
+
 type PassiveSkillMasteryEffects {
   Id: string
   HASH16: u16
@@ -4588,12 +4757,10 @@ type PassiveSkillMasteryEffects {
 type PassiveSkillMasteryGroups {
   Id: string @unique
   MasteryEffects: [PassiveSkillMasteryEffects]
-  InactiveIcon: string @file(ext: ".dds")
-  ActiveIcon: string @file(ext: ".dds")
-  ActiveEffectImage: string
   _: bool
   SoundEffect: SoundEffects
   MasteryCountStat: Stats
+  Art: PassiveSkillMasteryArt
 }
 
 type PassiveSkills {
@@ -4650,6 +4817,24 @@ type PassiveSkills {
   _: bool
   IsBrequelWomb: bool
   _: bool
+  _: i32
+  VariantType: PassiveSkillVariantTypes
+  AtlasSubTree: AtlasPassiveSkillSubTrees
+  _: bool
+  _: bool
+  _: bool
+  UIArt: PassiveSkillTreeUIArt
+}
+
+type PassiveSkillVariants {
+  Type: PassiveSkillVariantTypes
+  Variant: PassiveSkills
+}
+
+type PassiveSkillVariantTypes {
+  Id: string @unique
+  _: bool
+  _: bool
 }
 
 enum PassiveSkillTypes @indexing(first: 0) {
@@ -4683,6 +4868,8 @@ type PassiveSkillTrees {
   Name: ClientStrings
   UIArt: PassiveSkillTreeUIArt
   PassiveSkillGraph: string
+  _: PassiveSkillTreeUIArt
+  _: PassiveSkillTreeUIArt
 }
 
 type PassiveSkillTreeConnectionArt {
@@ -4747,11 +4934,15 @@ type PassiveSkillTreeTutorial {
 type PassiveSkillTreeUIArt {
   Id: string @unique
   _: bool
-  Ornament: string
   BackgroundArt: PassiveSkillTreeGroupBackgroundArt
   PassiveFrame: PassiveSkillTreeNodeFrameArt
   NotableFrame: PassiveSkillTreeNodeFrameArt
   KeystoneFrame: PassiveSkillTreeNodeFrameArt
+  ConnectionArt: PassiveSkillTreeConnectionArt
+  StartFrame: PassiveSkillTreeNodeFrameArt
+  _: PassiveSkillTreeNodeFrameArt
+  JewelFrame: PassiveSkillTreeNodeFrameArt
+  _: string
 }
 
 type PassiveSkillTreeUIArtAscendancy {
@@ -5138,6 +5329,7 @@ type Rulesets {
   Id: string @unique
   _: [Rulesets]
   _: [_] # All rows empty
+  _: string
 }
 
 type RunicCircles {
@@ -5155,6 +5347,12 @@ type SalvageBoxes {
 
 type SessionQuestFlags {
   QuestFlag: QuestFlags
+}
+
+type ShaperApparitionAbility {
+  _: i32
+  GrantedEffect: GrantedEffects
+  Name: string
 }
 
 type ShieldTypes @tags(list: ["item:def"]) {
@@ -5453,6 +5651,8 @@ type StashType {
 type StatDescriptionFunctions {
   Id: string
   TranslationId: string @unique
+  _: i32
+  _: bool
 }
 
 enum StatDescriptionTypes @indexing(first: 0) {
@@ -5731,6 +5931,7 @@ type Topologies {
   _: i32
   _: [i32]
   _: i32
+  _: bool
 }
 
 type TradeMarketCategory {
@@ -5808,6 +6009,7 @@ type Tutorial {
   _: bool
   _: bool
   _: i32
+  _: bool
 }
 
 type UIArtAscendancy {
@@ -6124,6 +6326,7 @@ type WorldAreaLeagueChances {
   _: i32
   _: i32
   _: i32
+  _: [i32]
 }
 
 type WorldObjectDisplayedApplicableItems {
@@ -6193,11 +6396,9 @@ type AdditionalMonstersFromMapStats {
 # Added 3.19
 type AlternateTreeArt {
   TreeVersion: AlternateTreeVersions @unique
-  ConnectionArt: PassiveSkillTreeConnectionArt
-  KeystoneFrameArt: PassiveSkillTreeNodeFrameArt
   RadiiArt: PassiveJewelRadiiArt
-  NotableFrameArt: PassiveSkillTreeNodeFrameArt
-  AscendancyFrameArt: PassiveSkillTreeNodeFrameArt
+  UIArt: PassiveSkillTreeUIArt
+  _: rid # All rows empty
 }
 
 # Added 3.21
@@ -7036,6 +7237,7 @@ type MinionDoublingStatTypes {
   Id: i32
   Stat: Stats
   MinionType: MinionType
+  Name: string
 }
 
 # Added 3.23
@@ -7136,6 +7338,7 @@ type StatisticTrackingMapDeviceLabels {
   _: i32
   _: i32
   _: i32
+  _: string
 }
 
 # Added 3.23

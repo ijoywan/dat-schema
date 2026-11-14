@@ -44,6 +44,13 @@ type BlightCraftingTypes {
   Id: string @unique
   _: i32
   _: bool
+  _: bool
+}
+
+type BlightCoreNotablePassives {
+  Passive: PassiveSkills
+  Stat: Stats
+  JewelStat: Stats
 }
 
 type BlightCraftingUniques @tags(list: ["crafting", "item:unique"]) {
