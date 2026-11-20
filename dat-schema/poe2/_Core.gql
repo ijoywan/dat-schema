@@ -1962,7 +1962,7 @@ type EndgameMapAtlas {
   _: i32
   _: i32
   MapObjective: EndgameMapObjectives
-  _: i32
+  GrantAtlasPoint: i32
   _: EndgameMapAtlas
   BiomeGroundType: EndgameMapBiomeGroundTypes
   MapDecoration1: EndgameMapDecorations
